@@ -5,7 +5,7 @@
       "name": "Debug lib_sys",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/debug/test/test",//since this is a library, we can not debug lib_sys directly
+      "program": "${workspaceFolder}/build/debug/test",//since this is a library, we can not debug lib_sys directly
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
@@ -19,7 +19,7 @@
       "name": "Release lib_sys",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/release/test/test",
+      "program": "${workspaceFolder}/build/release/test",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",

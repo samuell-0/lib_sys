@@ -2,21 +2,22 @@
 #include "procfs/procfs.h"
 #include <stdlib.h>
 #include <stdio.h>
+
 // PUBLIC
-struct cpu_struct* lib_sys_log_cpu(struct log_data* log_data_ptr)
+struct cpu_info* lib_sys_log_cpu(struct log_data* log_data_ptr)
 {
-    // allocate cpu_struct
-    struct cpu_struct* cpu_struct_ptr = malloc(sizeof *cpu_struct_ptr);
-    log_data_ptr->cpu_struct_ptr = cpu_struct_ptr;
+    // allocate cpu_info
+    struct cpu_info* cpu_info_ptr = malloc(sizeof *cpu_info_ptr);
+    log_data_ptr->cpu_info_ptr = cpu_info_ptr;
 
-    _parse_cpu_details(cpu_struct_ptr);
+    _parse_cpu_details(cpu_info_ptr);
 
-    return cpu_struct_ptr;
+    return cpu_info_ptr;
 }
 
 uint8_t lib_sys_log_stop_cpu(struct log_data* log_data_ptr)
 {
-    // deallocate cpu_struct
+    // deallocate cpu_info
     // 
 }
 
@@ -39,11 +40,11 @@ uint8_t _calculate_usage(struct cpu_stat* prev, struct cpu_stat* curr) {
     return (uint8_t)((total_diff - idle_diff) * 100 / total_diff);
 }
 
-uint8_t _log_cpu(struct cpu_struct* cpu_struct_ptr)
+uint8_t _log_cpu(struct cpu_info* cpu_info_ptr)
 {
-    struct cpu_stat stat_prev = cpu_struct_ptr->stat_curr;
-    _parse_cpu_stat(&cpu_struct_ptr->stat_curr);
-    cpu_struct_ptr->usage = _calculate_usage(&stat_prev, &cpu_struct_ptr->stat_curr);
+    struct cpu_stat stat_prev = cpu_info_ptr->stat_curr;
+    _parse_cpu_stat(&cpu_info_ptr->stat_curr);
+    cpu_info_ptr->usage = _calculate_usage(&stat_prev, &cpu_info_ptr->stat_curr);
     return 0;
 }
 

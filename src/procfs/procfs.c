@@ -15,7 +15,7 @@ void _parse_cpu_stat(struct cpu_stat* cpu_stat_ptr)
 
 }
 
-void _parse_cpu_details(struct cpu_struct* cpu_struct_ptr)
+void _parse_cpu_details(struct cpu_info* cpu_info_ptr)
 {
     FILE* file = fopen("/proc/cpuinfo", "r");
     // fscanf(file, "model name");

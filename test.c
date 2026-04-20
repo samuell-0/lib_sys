@@ -14,9 +14,7 @@ int main()
     while (true)
     {
         thrd_sleep(&time, NULL);
-        printf("%u%%\n", data.cpu_struct_ptr->usage);
-        printf(data.cpu_struct_ptr->name);
-        printf("\n");
+        printf("%u%%\n", data.cpu_info_ptr->usage);
 
     }
     lib_sys_log_stop_cpu(&data);
