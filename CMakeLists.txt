@@ -4,7 +4,7 @@ project(lib_sys C)
 add_library(lib_sys STATIC)
 
 target_include_directories(lib_sys PUBLIC 
-    ${CMAKE_CURRENT_SOURCE_DIR}/include>
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 target_sources(lib_sys PRIVATE
