@@ -1,23 +1,19 @@
 cmake_minimum_required(VERSION 4.0.0)
-
 project(lib_sys C)
 
-add_library(lib_sys INTERFACE 
-    src/cpu.c
-    src/procfs/procfs.c
-    src/sysfs/sysfs.c
-    src/lib_sys.c
+add_library(lib_sys STATIC)
+
+target_include_directories(lib_sys PUBLIC 
+    ${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
 
-target_include_directories(lib_sys INTERFACE 
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
-    # ${CMAKE_CURRENT_SOURCE_DIR}/src
+target_sources(lib_sys PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/cpu.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/procfs/procfs.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/sysfs/sysfs.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/lib_sys.c
 )
-add_executable(test 
-    test.c
-    src/cpu.c
-    src/procfs/procfs.c
-    src/sysfs/sysfs.c
-    src/lib_sys.c
-)
-target_include_directories(test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+add_executable(test test.c)
+
+target_link_libraries(test PRIVATE lib_sys)
