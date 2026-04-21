@@ -9,6 +9,8 @@ struct log_data//user owns it
     bool signal;
     struct timespec time;
     struct cpu_info* cpu_info_ptr;
+    void (*update_func_ptr)(struct log_data* log_data_ptr);
+
 };
 struct cpu_stat
 {

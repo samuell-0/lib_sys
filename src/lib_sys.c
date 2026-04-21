@@ -9,13 +9,12 @@ static struct log_data* _lib_sys_log(struct log_data* log_data_ptr)
 {
     while (log_data_ptr->signal == true)
     {
-        // sleep for 1/signal seconds
         thrd_sleep(&log_data_ptr->time, NULL);
 
         if (log_data_ptr->cpu_info_ptr != NULL)
-        {
             _log_cpu(log_data_ptr->cpu_info_ptr);
-        }
+        
+        log_data_ptr->update_func_ptr(log_data_ptr);
     }   
 }
 
