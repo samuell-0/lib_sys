@@ -14,6 +14,6 @@ target_sources(lib_sys PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/lib_sys.c
 )
 
-add_executable(test test.c)
+add_executable(test_lib_sys test.c)
 
-target_link_libraries(test PRIVATE lib_sys)
+target_link_libraries(test_lib_sys PRIVATE lib_sys)

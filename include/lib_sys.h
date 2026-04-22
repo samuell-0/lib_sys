@@ -1,3 +1,7 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stddef.h>
 #include <stdint.h>
 #include <threads.h>
@@ -9,7 +13,7 @@ struct log_data//user owns it
     bool signal;
     struct timespec time;
     struct cpu_info* cpu_info_ptr;
-    void (*update_func_ptr)(struct log_data* log_data_ptr);
+    void* user_data_ptr;
 
 };
 struct cpu_stat
@@ -29,3 +33,7 @@ thrd_t lib_sys_log(struct log_data* log_data_ptr);
 struct cpu_info* lib_sys_log_cpu(struct log_data* log_data);
 
 uint8_t lib_sys_log_stop_cpu(struct log_data* log_data);
+
+#ifdef __cplusplus
+}
+#endif
