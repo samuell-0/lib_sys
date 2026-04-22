@@ -7,8 +7,6 @@ uint8_t _log_cpu(struct cpu_info* cpu_info_ptr);
 struct usr_data
 {
     void (*ptr_to_func)(void*);
-    void** arg_arr;
-    uint8_t n_arr;
 };
 static struct log_data* _lib_sys_log(struct log_data* log_data_ptr)
 {
