@@ -13,7 +13,7 @@ struct log_data//user owns it
     bool signal;
     struct timespec time;
     struct cpu_info* cpu_info_ptr;
-    void* user_data_ptr;
+    void* usr_data_ptr;
 
 };
 struct cpu_stat

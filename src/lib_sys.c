@@ -4,9 +4,9 @@
 #include <stdio.h>
 
 uint8_t _log_cpu(struct cpu_info* cpu_info_ptr);
-struct user_data
+struct usr_data
 {
-    void* ptr_to_func;
+    void (*ptr_to_func)(void*);
     void** arg_arr;
     uint8_t n_arr;
 };
@@ -19,10 +19,9 @@ static struct log_data* _lib_sys_log(struct log_data* log_data_ptr)
         if (log_data_ptr->cpu_info_ptr != NULL)
             _log_cpu(log_data_ptr->cpu_info_ptr);
 
-        // this callback might be scrapped, since most slint APIs must be called on the main thread instead
-        if(log_data_ptr->user_data_ptr != NULL)
-            ((void* (*)(void* [], uint8_t))((struct user_data*)(log_data_ptr->user_data_ptr))->ptr_to_func)
-                (((struct user_data*)(log_data_ptr->user_data_ptr))->arg_arr, ((struct user_data*)(log_data_ptr->user_data_ptr))->n_arr);
+        if(log_data_ptr->usr_data_ptr != NULL)
+            (*(((struct usr_data*)(log_data_ptr->usr_data_ptr))->ptr_to_func))
+                (log_data_ptr->usr_data_ptr);
     }   
 }
 

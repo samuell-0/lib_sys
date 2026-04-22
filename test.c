@@ -15,7 +15,7 @@ int main()
     struct log_data data;
 
     struct user_data _user_data;
-    data.user_data_ptr = &_user_data;
+    data.usr_data_ptr = &_user_data;
 
     thrd_t thread_ptr = lib_sys_log(&data);
 
