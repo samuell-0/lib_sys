@@ -3,7 +3,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-uint8_t _log_cpu(struct cpu_info* cpu_info_ptr);
+void _log_cpu(struct cpu_info* cpu_info_ptr);
+void _log_mem(struct mem_info* mem_info_ptr);
+
 struct usr_data
 {
     void (*ptr_to_func)(void*);
@@ -16,7 +18,8 @@ static struct log_data* _lib_sys_log(struct log_data* log_data_ptr)
 
         if (log_data_ptr->cpu_info_ptr != NULL)
             _log_cpu(log_data_ptr->cpu_info_ptr);
-
+        if (log_data_ptr->mem_info_ptr != NULL)
+            _log_mem(log_data_ptr->mem_info_ptr);
         if(log_data_ptr->usr_data_ptr != NULL)
             (*(((struct usr_data*)(log_data_ptr->usr_data_ptr))->ptr_to_func))
                 (log_data_ptr->usr_data_ptr);

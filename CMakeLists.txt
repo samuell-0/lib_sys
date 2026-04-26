@@ -9,6 +9,7 @@ target_include_directories(lib_sys PUBLIC
 
 target_sources(lib_sys PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/cpu.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/mem.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/procfs/procfs.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/sysfs/sysfs.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/lib_sys.c

@@ -8,7 +8,7 @@ struct user_data
 };
 void update(struct log_data* log_data_ptr)
 {
-    printf("%u%%\n", log_data_ptr->cpu_info_ptr->usage);
+    printf("%u%%\n", log_data_ptr->cpu_info_ptr->usage_percent);
 }
 int main()
 {
