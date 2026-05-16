@@ -7,7 +7,8 @@
 struct cpu_info* lib_sys_log_cpu(struct log_data* log_data_ptr)
 {
     // allocate cpu_info
-    struct cpu_info* cpu_info_ptr = malloc(sizeof(struct cpu_info));
+    struct cpu_info* cpu_info_ptr = (struct cpu_info*)malloc(sizeof(struct cpu_info));
+    cpu_info_ptr->arr_percentages = (uint8_t*)calloc(100, sizeof(uint8_t));
     log_data_ptr->cpu_info_ptr = cpu_info_ptr;
 
     _parse_cpu_details(cpu_info_ptr);
@@ -27,7 +28,9 @@ void lib_sys_log_stop_cpu(struct log_data* log_data_ptr)
 }
 
 // PRIVATE
-void _calculate_usage(struct cpu_info* cpu_info_ptr) {
+void _cpu_calculate_usage(struct cpu_info* cpu_info_ptr) {
+
+    if (cpu_info_ptr->arr_percentages == NULL) return;
 
     long long prev_total = cpu_info_ptr->stat_prev.user + cpu_info_ptr->stat_prev.nice + cpu_info_ptr->stat_prev.system + cpu_info_ptr->stat_prev.idle + 
                            cpu_info_ptr->stat_prev.iowait + cpu_info_ptr->stat_prev.irq + cpu_info_ptr->stat_prev.softirq + cpu_info_ptr->stat_prev.steal;
@@ -40,15 +43,19 @@ void _calculate_usage(struct cpu_info* cpu_info_ptr) {
     long long total_diff = curr_total - prev_total;
     long long idle_diff = curr_idle - prev_idle;
 
-    if (total_diff == 0) cpu_info_ptr->usage_percent = 0;
+    if (total_diff == 0) 
+    {
+        append(cpu_info_ptr->arr_percentages, 100, 0);
+        return;
+    }
     
-    cpu_info_ptr->usage_percent = (uint8_t)((total_diff - idle_diff) * 100 / total_diff);
+    append(cpu_info_ptr->arr_percentages, 100, (uint8_t)((total_diff - idle_diff) * 100 / total_diff));
 }
 
 void _log_cpu(struct cpu_info* cpu_info_ptr)
 {
     cpu_info_ptr->stat_prev = cpu_info_ptr->stat_curr;
     _parse_cpu_stat(&cpu_info_ptr->stat_curr);
-    _calculate_usage(cpu_info_ptr);
+    _cpu_calculate_usage(cpu_info_ptr);
 }
 

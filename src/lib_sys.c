@@ -28,8 +28,8 @@ static struct log_data* _lib_sys_log(struct log_data* log_data_ptr)
 
 thrd_t lib_sys_log(struct log_data* log_data_ptr)
 {
-    // log_data_ptr->time.tv_nsec = (10000000000 / 60);
-    log_data_ptr->time.tv_sec = 1;
+    log_data_ptr->time.tv_nsec = 1e8;
+    log_data_ptr->time.tv_sec = 0;
 
     log_data_ptr->signal = true;
 

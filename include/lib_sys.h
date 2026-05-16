@@ -1,3 +1,4 @@
+#pragma once
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -7,6 +8,8 @@ extern "C" {
 #include <threads.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include "string.h"
+
 
 struct log_data//user owns it
 {
@@ -29,7 +32,9 @@ struct cpu_info
     float cpu_mhz;
     int cache_size_kb;
 
-    uint8_t usage_percent;
+    uint8_t size_of_arr;
+    uint8_t* arr_percentages;
+
     struct cpu_stat stat_curr;
     struct cpu_stat stat_prev;
 };
@@ -47,7 +52,9 @@ struct mem_info {
     uint64_t swap_total_kb;
 
     struct mem_stat mem_stat_;
-    uint8_t usage_percent;
+
+    uint8_t size_of_arr;
+    uint8_t* arr_percentages;
 };
 
 
@@ -64,6 +71,13 @@ void lib_sys_log_stop_cpu(struct log_data* log_data_ptr);
 struct mem_info* lib_sys_log_mem(struct log_data* log_data_ptr);
 
 void lib_sys_log_stop_mem(struct log_data* log_data_ptr);
+
+
+static inline void append(uint8_t* arr, uint16_t n, uint8_t v)
+{
+    memmove(arr, arr + 1, n - 1);
+    arr[n - 1] = v;
+}   
 #ifdef __cplusplus
 }
 #endif
